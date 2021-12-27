@@ -16,8 +16,8 @@ export async function getStaticProps(){
     props:{
       recipes: res.items,
       // ISR : 
-      revalidate: 1,
-    }
+    },
+    revalidate: 1,
   }  
 
 }
