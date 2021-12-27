@@ -32,6 +32,9 @@ export async function getStaticProps({ params }) {
   });
   return {
     props: { recipe: items[0] },
+    // Ini buat ISR (inceremenrtal static generation) jadi next bakal cek data setiap 1 detik saat user masuk ke web kita untuk cek
+    // Apakah konten atau data nya berubah atau nggak, kalo iya maka nanti bakal di update tapi baru bisa keliatan kalo di refresh dulu
+    revalidate: 1
   };
 }
 
