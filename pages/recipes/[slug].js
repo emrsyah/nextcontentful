@@ -31,6 +31,17 @@ export async function getStaticProps({ params }) {
     content_type: "recipe",
     "fields.slug": params.slug,
   });
+
+  if(!items.length){
+    // Redirect kalo misalnya gak ada datany dari si contentful
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
   return {
     props: { recipe: items[0] },
     // Ini buat ISR (inceremenrtal static generation) jadi next bakal cek data setiap 1 detik saat user masuk ke web kita untuk cek
