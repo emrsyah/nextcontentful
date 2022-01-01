@@ -32,27 +32,26 @@ export async function getStaticProps({ params }) {
     "fields.slug": params.slug,
   });
 
-  if(!items.length){
+  if (!items.length) {
     // Redirect kalo misalnya gak ada datany dari si contentful
     return {
       redirect: {
-        destination: '/',
-        permanent: false
-      }
-    }
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
 
   return {
     props: { recipe: items[0] },
     // Ini buat ISR (inceremenrtal static generation) jadi next bakal cek data setiap 1 detik saat user masuk ke web kita untuk cek
     // Apakah konten atau data nya berubah atau nggak, kalo iya maka nanti bakal di update tapi baru bisa keliatan kalo di refresh dulu
-    revalidate: 1
+    revalidate: 1,
   };
 }
 
 export default function RecipeDetails({ recipe }) {
-
-  if(!recipe) return <Skeleton/>
+  if (!recipe) return <Skeleton />;
 
   const { featuredImage, title, cookingTime, ingredients, method } =
     recipe.fields;
@@ -70,7 +69,7 @@ export default function RecipeDetails({ recipe }) {
       <div className="info">
         <p>Take About {cookingTime} mins to cook</p>
         <h3>Ingredients: </h3>
-        {ingredients.map(ing=>(
+        {ingredients.map((ing) => (
           <span key={ing}>{ing}</span>
         ))}
       </div>
@@ -80,29 +79,30 @@ export default function RecipeDetails({ recipe }) {
       </div>
       <style jsx>
         {`
-        h2,h3 {
-          text-transform: uppercase;
-        }
-        .banner h2 {
-          margin: 0;
-          background: #fff;
-          display: inline-block;
-          padding: 20px;
-          position: relative;
-          top: -60px;
-          left: -10px;
-          transform: rotateZ(-1deg);
-          box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
-        }
-        .info p {
-          margin: 0;
-        }
-        .info span::after {
-          content: ", ";
-        }
-        .info span:last-child::after {
-          content: ".";
-        }
+          h2,
+          h3 {
+            text-transform: uppercase;
+          }
+          .banner h2 {
+            margin: 0;
+            background: #fff;
+            display: inline-block;
+            padding: 20px;
+            position: relative;
+            top: -60px;
+            left: -10px;
+            transform: rotateZ(-1deg);
+            box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+          }
+          .info p {
+            margin: 0;
+          }
+          .info span::after {
+            content: ", ";
+          }
+          .info span:last-child::after {
+            content: ".";
+          }
         `}
       </style>
     </div>
